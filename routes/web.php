@@ -24,3 +24,7 @@ Route::put('/article/{question_id}', 'ArticleController@update')->name('article.
 Route::delete('/article/{article_id}', 'ArticleController@delete')->name('article.delete');
 Route::get('/article/{article_id}/edit', 'ArticleController@edit')->name('article.edit');
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

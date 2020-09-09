@@ -12,16 +12,16 @@
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-  <header style="height: 60px; background-color: gray;">
-
+  <header class="d-flex align-items-center">
+    <div class="w-100 text-center"><a class="" href="{{ route('article.index') }}">Soooota</a></div>
   </header>
 
   <main>
     @yield('content')
   </main>
 
-  <footer style="height: 60px; background-color: gray;">
-  
+  <footer class="small text-center">
+    <p>©2020 Gizumo.inc All Right Reserved.</p>
   </footer>
 
 </body>

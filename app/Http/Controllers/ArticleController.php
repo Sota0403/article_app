@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Article;
 use Illuminate\Http\Request;
+use App\Http\Requests\ArticleRequest;
 
 class ArticleController extends Controller
 {
+    public function __construct(Article $article)
+    {
+        $this->article = $article;
+    }
+
     public function index()
     {
         return view('article.index');
@@ -16,9 +23,10 @@ class ArticleController extends Controller
         return view('article.create');
     }
 
-    public function store()
+    public function store(ArticleRequest $request)
     {
-        //
+        $attributes = $request->all();
+        dd($attributes);
     }
 
     public function edit()
