@@ -27,7 +27,7 @@
             @enderror
           </div>
           <div class="create-preview w-50 bg-white min-height">
-            
+
           </div>
         </div>
         <div class="create-submit mt-5">

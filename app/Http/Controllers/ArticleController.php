@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ArticleRequest;
 
 class ArticleController extends Controller
@@ -26,7 +27,10 @@ class ArticleController extends Controller
     public function store(ArticleRequest $request)
     {
         $attributes = $request->all();
-        dd($attributes);
+        $this->article->fill($attributes);
+        $attributes['user_id'] = Auth::id();
+
+        $this->article->save();
     }
 
     public function edit()

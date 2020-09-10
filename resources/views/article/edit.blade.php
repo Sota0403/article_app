@@ -21,7 +21,7 @@
             <textarea class="w-100 min-height" name="content" id=""></textarea>
           </div>
           <div class="create-preview w-50 bg-white min-height">
-            
+
           </div>
         </div>
         <div class="create-submit mt-5">

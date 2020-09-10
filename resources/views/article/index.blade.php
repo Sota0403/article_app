@@ -55,7 +55,7 @@
                 <p class="top-article-name d-inline-block ml-3 mb-0">by sango_tarou</p>
               </div>
             </li>
-          </ul>  
+          </ul> 
         </div>
       </div>
       <div class="col-md-3">
@@ -63,7 +63,7 @@
           <div class="top-profile-img">
             <img src="{{ asset('images/icon.png') }}" alt="">
           </div>
-          <p class="top-profile-name text-center">お名前</p>
+          <p class="top-profile-name text-center mt-4">お名前</p>
           <p class="text-center">記事数：</p>
           <p class="text-center">総いいね：</p>
         </div>
