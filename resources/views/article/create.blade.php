@@ -8,7 +8,7 @@
         @csrf
         <div>
           <label for="title">タイトル</label>
-          <input class="w-100" type="text" name="title">
+          {!! Form::text('title', '', ['class' => 'w-100']) !!}
           @error('title')
             <p class="text-danger">{{ $message }}</p>
           @enderror
@@ -21,7 +21,7 @@
         </div>
         <div class="d-flex mt-4">
           <div class="w-50">
-            <textarea class="w-100 min-height" name="content" id=""></textarea>
+            {!! Form::textarea('content', '', ['class' => 'w-100 min-height']) !!}
             @error('content')
             <p class="text-danger">{{ $message }}</p>
             @enderror

@@ -7,6 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Model
 {
       /**
+       * Tagsテーブルとのリレーション
+       *
+       * @return void
+       */
+      public function tags()
+      {
+          return $this->belognsToMany('App\Article');
+      }
+
+
+      /**
        * fillable指定
        *
        * @var array
