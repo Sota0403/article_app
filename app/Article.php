@@ -13,7 +13,7 @@ class Article extends Model
        */
       public function tags()
       {
-          return $this->belognsToMany('App\Article');
+          return $this->belongsToMany('App\Tag');
       }
 
 

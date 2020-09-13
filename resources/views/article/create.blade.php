@@ -13,11 +13,10 @@
             <p class="text-danger">{{ $message }}</p>
           @enderror
         </div>
-        <div class=mt-2>
-          <input type="checkbox">HTML
-          <input type="checkbox">CSS
-          <input type="checkbox">Javascript
-          <input type="checkbox">PHP
+        <div class="mt-2">
+          @foreach ($tags as $tag)
+          {!! Form::checkbox('tags[]', $tag->id, '', ['class' => 'ml-2']) !!}{{ $tag->name }}
+          @endforeach
         </div>
         <div class="d-flex mt-4">
           <div class="w-50">

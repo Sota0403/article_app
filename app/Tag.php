@@ -8,6 +8,6 @@ class Tag extends Model
 {
       public function articles()
       {
-          return $this->belongsToMany('App\Tag');
+          return $this->belongsToMany('App\Article');
       }
 }

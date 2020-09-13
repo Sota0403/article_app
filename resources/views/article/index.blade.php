@@ -22,11 +22,12 @@
                   <div class="top-article-content ml-3">
                     <p class="top-article-ttl mb-0">{{ $article->title }}</p>
                     <ul class="top-article-tags">
-                      <li class="top-article-tag d-inline-block"><a href="">HTML</a></li>
-                      <li class="top-article-tag d-inline-block ml-2"><a href="">CSS</a></li>
+                      @foreach ($article->tags as $tag)
+                         <li class="top-article-tag d-inline-block ml-2"><a href="">{{ $tag->name }}</a></li>
+                      @endforeach
                     </ul>
                     <p class="top-article-like d-inline-block mb-0">12</p>
-                    <p class="top-article-name d-inline-block ml-3 mb-0">{{ $article->name }}</p>
+                    <p class="top-article-name d-inline-block ml-3 mb-0">{{ $article->user_name }}</p>
                   </div>
                 </a>
               </li>

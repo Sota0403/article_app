@@ -25,10 +25,26 @@ class ArticleController extends Controller
 
     public function index()
     {
-        // $articles = $this->article->all();
-        $articles = DB::table('articles')->join('users','articles.user_id', '=', 'users.id')
-                             ->select('users.id', 'users.name', 'articles.title', 'articles.content')
-                             ->paginate(self::PER_PAGE);
+        // $articles = DB::table('articles')
+        //                      ->select([
+        //                        'users.id',
+        //                        'users.name as user_name',
+        //                        'articles.id',
+        //                        'articles.title',
+        //                        'articles.content',
+        //                        'tags.id',
+        //                        'tags.name'
+        //                      ])
+        //                     //  ->select(DB::raw('users.id, users.name as user_name, articles.id, articles.title, articles.content, articles.content, count(tags.id), count(tags.name)'))
+        //                      ->join('users','articles.user_id', '=', 'users.id')
+        //                      ->join('article_tag','articles.id', '=', 'article_tag.article_id')
+        //                      ->join('tags','article_tag.tag_id', '=', 'tags.id')
+        //                     //  ->groupBy('tags.id', 'tags.name')->get();
+        //                      ->orderBy('articles.id','desc')
+        //                      ->paginate(self::PER_PAGE);
+
+        $articles = $this->article->orderBy('id', 'desc')
+                                  ->paginate(15);
 
         $currentUser = DB::table('users')->where('id', Auth::id())
                                          ->first();
@@ -38,16 +54,22 @@ class ArticleController extends Controller
 
     public function create()
     {
-        return view('article.create');
+        $tags = $this->tag->all();
+        return view('article.create', compact('tags'));
     }
 
     public function store(ArticleRequest $request)
     {
         $attributes = $request->all();
-        $this->article->fill($attributes);
-        $attributes['user_id'] = Auth::id();
+        $tags = $request->input('tags');
+        // dd($tags);
+        $article = $this->article->fill($attributes);
+        $article->user_id = Auth::id();
 
-        $this->article->save();
+        $article->save();
+        $article->tags()->attach($tags);
+        // dd($article);
+        return redirect()->route('article.index');
     }
 
     public function edit()
