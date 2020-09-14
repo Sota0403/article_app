@@ -16,10 +16,15 @@ Route::group(['middleware' => 'auth'], function() {
   Route::post('/article', 'ArticleController@store')->name('article.store');
   Route::get('/article/create', 'ArticleController@create')->name('article.create');
   Route::get('/article/mypage', 'ArticleController@showMypage')->name('article.mypage');
+  Route::post('/article/confirm/{article_id?}', 'ArticleController@confirm')->name('article.comfirm');
   Route::get('/article/{article_id}', 'ArticleController@show')->name('article.show');
   Route::put('/article/{question_id}', 'ArticleController@update')->name('article.update');
   Route::delete('/article/{article_id}', 'ArticleController@delete')->name('article.delete');
   Route::get('/article/{article_id}/edit', 'ArticleController@edit')->name('article.edit');
+});
+
+Route::group(['middleware' => 'auth'], function() {
+  Route::get('/profile', 'UserController@showProfile')->name('profile');
 });
 
 Auth::routes();

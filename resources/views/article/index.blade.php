@@ -15,21 +15,19 @@
           <ul class="mb-0">
             @foreach ($articles as $article)
               <li class="top-article d-flex p-2">
-                <a href="{{ route('article.show', $article->id) }}">
                   <div class="top-article-img">
                     <img src="{{ asset('images/icon.png') }}" alt="">
                   </div>
                   <div class="top-article-content ml-3">
-                    <p class="top-article-ttl mb-0">{{ $article->title }}</p>
+                    <a href="{{ route('article.show', $article->id) }}"><p class="top-article-ttl mb-0">{{ $article->title }}</p></a>
                     <ul class="top-article-tags">
                       @foreach ($article->tags as $tag)
-                         <li class="top-article-tag d-inline-block ml-2"><a href="">{{ $tag->name }}</a></li>
+                        <li class="top-article-tag d-inline-block ml-2"><a href="">{{ $tag->name }}</a></li>
                       @endforeach
                     </ul>
                     <p class="top-article-like d-inline-block mb-0">12</p>
                     <p class="top-article-name d-inline-block ml-3 mb-0">{{ $article->user_name }}</p>
                   </div>
-                </a>
               </li>
             @endforeach
           </ul>

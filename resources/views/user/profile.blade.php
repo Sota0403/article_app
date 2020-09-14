@@ -1,0 +1,26 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+  <div class="row">
+    <div class="col-md-9 p-4 bg-white">
+      <h1>マイページです</h1>
+      {{-- <div class="profile-row">
+        <p class="font-weight-bold">アバター</p>
+        <p>{{ $currentUser->avator }}</p>
+      </div> --}}
+      <div class="profile-row">
+        <p class="font-weight-bold">名前</p>
+        <p>{{ $currentUser->name }}</p>
+      </div>
+      <div class="profile-row">
+        <p class="font-weight-bold">メールアドレス</p>
+        <p>{{ $currentUser->email }}</p>
+      </div>
+    </div>
+    <div class="col-md-3 p-4 bg-white">
+      <a href="" class="btn btn-primary mx-auto">プロフ変更</a>
+    </div>
+  </div>
+</div>
+@endsection

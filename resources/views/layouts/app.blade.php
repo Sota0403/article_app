@@ -19,6 +19,7 @@
       <ul class="d-flex mb-0">
         <li class="ml-2"><a href="{{ route('article.index') }}">記事一覧</a></li>
         <li class="ml-2"><a href="{{ route('article.mypage') }}">マイページ</a></li>
+        <li class="ml-2"><a href="{{ route('profile') }}">プロフィール</a></li>
       </ul>
       <form action="{{ route('logout') }}" method="post">
         @csrf

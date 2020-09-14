@@ -37,6 +37,6 @@ class TopController extends Controller
               'not_first_login' => 1,
               'password' => Hash::make($request->password),
              ]);
-        return view('article.index');
+        return redirect()->route('article.index');
     }
 }

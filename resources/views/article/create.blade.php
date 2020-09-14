@@ -4,7 +4,7 @@
   <div class="l-container">
     <h1>記事作成ページです！</h1>
     <div class="create-form">
-      <form action="{{ route('article.store') }}" method="POST">
+      <form action="{{ route('article.comfirm') }}" method="POST">
         @csrf
         <div>
           <label for="title">タイトル</label>

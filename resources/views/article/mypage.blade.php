@@ -26,7 +26,7 @@
                       <li class="top-article-tag d-inline-block ml-2"><a href="">CSS</a></li>
                     </ul>
                     <p class="top-article-like d-inline-block mb-0">12</p>
-                    <p class="top-article-name d-inline-block ml-3 mb-0">{{ $article->name }}</p>
+                    <p class="top-article-name d-inline-block ml-3 mb-0"></p>
                   </div>
                 </a>
               </li>
