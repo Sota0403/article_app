@@ -1,3 +1,5 @@
+import marked from 'marked';
+
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -30,3 +32,10 @@ require('./bootstrap');
 // const app = new Vue({
 //     el: '#app',
 // });
+
+$(function () {
+  $('#markdown_editor_area').on('keyup',function () {
+    const content = marked($(this).val());
+    $('#markdown_preview').html(content);
+  });
+});

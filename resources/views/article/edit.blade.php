@@ -20,12 +20,12 @@
         </div>
         <div class="d-flex mt-4">
           <div class="w-50">
-            {!! Form::textarea('content',  $targetArticle->content, ['class' => 'w-100 min-height']) !!}
+            {!! Form::textarea('content',  $targetArticle->content, ['class' => 'w-100 min-height', 'id' => 'markdown_editor_area']) !!}
             @error('content')
             <p class="text-danger">{{ $message }}</p>
             @enderror
           </div>
-          <div class="create-preview w-50 bg-white min-height">
+          <div class="create-preview w-50 bg-white min-height" id="markdown_preview">
 
           </div>
         </div>
