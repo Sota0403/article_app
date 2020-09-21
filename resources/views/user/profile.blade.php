@@ -19,8 +19,10 @@
       </div>
     </div>
     <div class="col-md-3 p-4 bg-white">
-      <a href="" class="btn btn-primary mx-auto">プロフ変更</a>
+      <p class="btn btn-primary mx-auto" data-toggle="modal" data-target="#exampleModal">プロフ変更</p>
     </div>
   </div>
 </div>
+
+
 @endsection

@@ -18,8 +18,7 @@
       @if( Auth::check() )
       <ul class="d-flex mb-0">
         <li class="ml-2"><a href="{{ route('article.index') }}">記事一覧</a></li>
-        <li class="ml-2"><a href="{{ route('article.mypage') }}">マイページ</a></li>
-        <li class="ml-2"><a href="{{ route('profile') }}">プロフィール</a></li>
+        <li class="ml-2"><a href="{{ route('user.mypage') }}">マイページ</a></li>
       </ul>
       <form action="{{ route('logout') }}" method="post">
         @csrf
@@ -43,5 +42,6 @@
     <p>©2020 Gizumo.inc All Right Reserved.</p>
   </footer>
 
+  <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

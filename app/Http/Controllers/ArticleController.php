@@ -38,6 +38,7 @@ class ArticleController extends Controller
             ->select([
               'users.id as user_id',
               'users.name as user_name',
+              'users.picture as user_picture',
               'articles.id',
               'articles.title',
               'articles.content',
@@ -64,8 +65,7 @@ class ArticleController extends Controller
             $articleHistories = $this->article->whereIn('id', $articleHistoryIds)
                                               ->get();
 
-        $currentUser = DB::table('users')->where('id', Auth::id())
-                                         ->first();
+        $currentUser = $this->user->find(Auth::id());
 
         return view('article.index', compact('articles', 'currentUser', 'articleHistories'));
     }

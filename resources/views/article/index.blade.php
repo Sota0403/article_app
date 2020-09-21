@@ -16,7 +16,7 @@
             @foreach ($articles as $article)
               <li class="top-article d-flex p-2">
                   <div class="top-article-img">
-                    <a href="{{ route('user', $article->user_id) }}"><img src="{{ asset('images/icon.png') }}" alt=""></a>
+                    <a href="{{ route('user.profile', $article->user_id) }}"><img src="{{ asset('storage/users/' . $article->user_picture) }}" alt=""></a>
                   </div>
                   <div class="top-article-content ml-3">
                     <a href="{{ route('article.show', $article->id) }}"><p class="top-article-ttl mb-0">{{ $article->title }}</p></a>
@@ -36,10 +36,10 @@
       <div class="col-md-3">
         <div class="top-profile bg-white p-2">
           <div class="top-profile-img">
-            <a href=""><img src="{{ asset('images/icon.png') }}" alt=""></a>
+            <a href=""><img src="{{ asset('storage/users/' . $currentUser->picture) }}" alt=""></a>
           </div>
           <p class="top-profile-name text-center mt-4">{{ $currentUser->name }}</p>
-          <p class="text-center">記事数：</p>
+          <p class="text-center">記事数：{{ count($currentUser->articles) }}</p>
           <p class="text-center">総いいね：</p>
           <a href="{{ route('article.create') }}" class="btn btn-primary mx-auto">記事作成</a>
         </div>

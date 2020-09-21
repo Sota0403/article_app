@@ -6,6 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
+
+      /**
+       * Usersテーブルとのリレーション
+       *
+       * @return void
+       */
+      public function user()
+      {
+          return $this->belongsTo('App\User');
+      }
+
       /**
        * Tagsテーブルとのリレーション
        *
