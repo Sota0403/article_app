@@ -16,7 +16,7 @@
             @foreach ($articles as $article)
               <li class="top-article d-flex p-2">
                   <div class="top-article-img">
-                    <img src="{{ asset('images/icon.png') }}" alt="">
+                    <a href="{{ route('user', $article->user_id) }}"><img src="{{ asset('images/icon.png') }}" alt=""></a>
                   </div>
                   <div class="top-article-content ml-3">
                     <a href="{{ route('article.show', $article->id) }}"><p class="top-article-ttl mb-0">{{ $article->title }}</p></a>
@@ -36,7 +36,7 @@
       <div class="col-md-3">
         <div class="top-profile bg-white p-2">
           <div class="top-profile-img">
-            <img src="{{ asset('images/icon.png') }}" alt="">
+            <a href=""><img src="{{ asset('images/icon.png') }}" alt=""></a>
           </div>
           <p class="top-profile-name text-center mt-4">{{ $currentUser->name }}</p>
           <p class="text-center">記事数：</p>
@@ -44,7 +44,7 @@
           <a href="{{ route('article.create') }}" class="btn btn-primary mx-auto">記事作成</a>
         </div>
         <div class="mt-3 bg-white p-3">
-          <p class="text-center">ユーザランキング</p>
+          <p class="text-center font-weight-bold">ユーザランキング</p>
           <div class="d-flex justify-content-center">
             <p class="p-1 bg-light">総いいね</p>
             <p class="ml-2 p-1 bg-light">記事数</p>
@@ -56,6 +56,23 @@
               <p class="ml-2">♡</p>
             </li>
           </ul>
+        </div>
+        <div class="mt-3 bg-white p-3">
+          <p class="text-center font-weight-bold">最近の検索履歴</p>
+          <div class="d-flex justify-content-center">
+            <ul>
+              @if(isset($articleHistories))
+                @foreach ($articleHistories as $articleHistory)
+                  <li class="d-flex align-items-center">
+                    <div><img src="" alt=""></div>
+                    <p class="ml-2">{{ $articleHistory->title }}</p>
+                  </li>
+                @endforeach
+              @else
+                <li>検索履歴はありません</li>
+              @endif
+            </ul>
+          </div>
         </div>
       </div>
     </div>

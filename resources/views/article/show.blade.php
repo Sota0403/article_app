@@ -30,6 +30,11 @@
       </div>
       <div class="col-md-2 bg-white p-3">
         <p>サイドバーですよん</p>
+        @if(!$likeExist)
+        <a class="btn btn-primary" href="{{ route('article.like', $article->id) }}">いいねをする</a>
+        @else
+        <a class="btn btn-danger" href="{{ route('article.unlike', $article->id) }}">いいね解除</a>
+        @endif
       </div>
     </div>
   </div>

@@ -16,6 +16,15 @@ class Article extends Model
           return $this->belongsToMany('App\Tag');
       }
 
+      /**
+       * likeテーブルとのリレーション
+       *
+       * @return void
+       */
+      public function likes() {
+          return $this->hasMany('App\Like');
+      }
+
 
       /**
        * fillable指定

@@ -18,13 +18,16 @@ Route::group(['middleware' => 'auth'], function() {
   Route::get('/article/mypage', 'ArticleController@showMypage')->name('article.mypage');
   Route::post('/article/confirm/{article_id?}', 'ArticleController@confirm')->name('article.comfirm');
   Route::get('/article/{article_id}', 'ArticleController@show')->name('article.show');
-  Route::put('/article/{question_id}', 'ArticleController@update')->name('article.update');
+  Route::put('/article/{article_id}', 'ArticleController@update')->name('article.update');
   Route::delete('/article/{article_id}', 'ArticleController@delete')->name('article.delete');
   Route::get('/article/{article_id}/edit', 'ArticleController@edit')->name('article.edit');
-});
+  Route::get('/like/{article_id}', 'ArticleController@addLike')->name('article.like');
+  Route::get('/unlike/{article_id}', 'ArticleController@unLike')->name('article.unlike');
 
-Route::group(['middleware' => 'auth'], function() {
   Route::get('/profile', 'UserController@showProfile')->name('profile');
+  Route::get('/profile/{user_id}', 'UserController@showUser')->name('user');
+
+  Route::post('/follow/{user_id}', 'followController@followUser')->name('follow');
 });
 
 Auth::routes();

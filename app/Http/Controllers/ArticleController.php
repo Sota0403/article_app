@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Article;
 use App\Tag;
 use App\User;
+use App\Like;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ArticleRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cookie;
 
 class ArticleController extends Controller
 {
@@ -18,41 +20,54 @@ class ArticleController extends Controller
     private $article;
     private $user;
     private $tag;
+    private $like;
 
-    public function __construct(Article $article, User $user, Tag $tag)
+    public function __construct(Article $article, User $user, Tag $tag, Like $like)
     {
         $this->article = $article;
         $this->user = $user;
         $this->tag = $tag;
+        $this->like = $like;
     }
 
     public function index()
     {
-        // $articles = DB::table('articles')
-        //                      ->select([
-        //                        'users.id',
-        //                        'users.name as user_name',
-        //                        'articles.id',
-        //                        'articles.title',
-        //                        'articles.content',
-        //                        'tags.id',
-        //                        'tags.name'
-        //                      ])
-        //                     //  ->select(DB::raw('users.id, users.name as user_name, articles.id, articles.title, articles.content, articles.content, count(tags.id), count(tags.name)'))
-        //                      ->join('users','articles.user_id', '=', 'users.id')
-        //                      ->join('article_tag','articles.id', '=', 'article_tag.article_id')
-        //                      ->join('tags','article_tag.tag_id', '=', 'tags.id')
-        //                     //  ->groupBy('tags.id', 'tags.name')->get();
-        //                      ->orderBy('articles.id','desc')
-        //                      ->paginate(self::PER_PAGE);
 
-        $articles = $this->article->orderBy('id', 'desc')
-                                  ->paginate(15);
+        $articles = DB::table('articles')
+            ->join('users','articles.user_id', '=', 'users.id')
+            ->select([
+              'users.id as user_id',
+              'users.name as user_name',
+              'articles.id',
+              'articles.title',
+              'articles.content',
+            ])
+            ->orderByDesc('articles.id')
+            ->paginate(10);
+
+            //ここで、もう一つクエリを発行して、articles.idに紐付いたtagのidとnameを配列に格納する
+            foreach ($articles as $article) {
+              $tags = DB::table('tags')
+                            ->join('article_tag', 'tags.id', '=', 'article_tag.tag_id')
+                            ->select('tags.id', 'tags.name')
+                            ->where('article_tag.article_id', $article->id)
+                            ->get();
+
+              $article->tags = $tags;
+            }
+
+            $articleHistoryIds[] = Cookie::get('article1');
+            $articleHistoryIds[] = Cookie::get('article2');
+            $articleHistoryIds[] = Cookie::get('article3');
+            $articleHistoryIds[] = Cookie::get('article4');
+
+            $articleHistories = $this->article->whereIn('id', $articleHistoryIds)
+                                              ->get();
 
         $currentUser = DB::table('users')->where('id', Auth::id())
                                          ->first();
 
-        return view('article.index', compact('articles', 'currentUser'));
+        return view('article.index', compact('articles', 'currentUser', 'articleHistories'));
     }
 
     public function create()
@@ -72,7 +87,7 @@ class ArticleController extends Controller
         $article->user_id = Auth::id();
 
         $article->save();
-        $article->tags()->attach($articleContent['tags']); //ここの処理について聞いてみる
+        $article->tags()->attach($articleContent['tags']);
 
         session()->pull('title', '');
         session()->pull('tags', '');
@@ -111,7 +126,24 @@ class ArticleController extends Controller
     public function show($article_id)
     {
         $article = $this->article->find($article_id);
-        return view('article.show', compact('article'));
+
+        if(
+          $article_id != Cookie::get('article1') &&
+          $article_id != Cookie::get('article2') &&
+          $article_id != Cookie::get('article3') &&
+          $article_id != Cookie::get('article4')
+        ) {
+          $articleHistory1 = Cookie::queue('article1', $article_id);
+          $articleHistory2 = Cookie::queue('article2', Cookie::get('article1'));
+          $articleHistory3 = Cookie::queue('article3', Cookie::get('article2'));
+          $articleHistory4 = Cookie::queue('article4', Cookie::get('article3'));
+        }
+
+        $likeExist = $this->like->where('article_id', $article->id)
+                          ->where('user_id', Auth::id())
+                          ->exists();
+
+        return view('article.show', compact('article', 'likeExist'));
     }
 
     public function confirm(Request $request, $article_id = null)
@@ -158,4 +190,22 @@ class ArticleController extends Controller
     //     $user = $this->user->where($user_id);
     //     return view('article.mypage', compact('user'));
     // }
+
+    public function addLike($article_id) {
+        $article = $this->article->find($article_id);
+
+        $currentUserId = Auth::id();
+        $article->likes()->insert(['user_id' => $currentUserId, 'article_id' => $article->id]);
+
+        return redirect()->route('article.show', $article_id);
+    }
+
+    public function unlike($article_id) {
+
+      $this->like->where('article_id', $article_id)
+                 ->where('user_id', Auth::id())
+                 ->delete();
+
+      return redirect()->route('article.show', $article_id);
+    }
 }
